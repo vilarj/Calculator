@@ -6,12 +6,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,6 +25,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -52,6 +50,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var equation = '', answer = '';
+
   final List<String> barBtn = [
     'AC',
     'DEL',
@@ -77,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: non_constant_identifier_names
     bool Operator(String x) {
       if (x == '﹪' ||
           x == '÷' ||
@@ -97,7 +98,32 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: Container(),
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      equation,
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      answer,
+                      style: TextStyle(fontSize: 28),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
           Expanded(
             flex: 2,
@@ -108,13 +134,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       crossAxisCount: 4),
                   itemBuilder: (BuildContext context, int index) {
                     return Btn(
-                      btnText: barBtn[index],
-                      color: Operator(barBtn[index])
-                          ? Colors.redAccent
-                          : Colors.blue[200],
-                      txtColor:
-                          Operator(barBtn[index]) ? Colors.white : Colors.black,
-                    );
+                        btnTapped: () {
+                          setState(() {
+                            equation += barBtn[index];
+                          });
+                        },
+                        btnText: barBtn[index],
+                        color: Operator(barBtn[index])
+                            ? Colors.redAccent
+                            : Colors.blue[200],
+                        txtColor: Operator(barBtn[index])
+                            ? Colors.white
+                            : Colors.black);
                   }),
             ),
           ),
