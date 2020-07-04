@@ -77,6 +77,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool Operator(String x) {
+      if (x == '﹪' ||
+          x == '÷' ||
+          x == '×' ||
+          x == '-' ||
+          x == '+' ||
+          x == 'AC' ||
+          x == 'DEL' ||
+          x == '=') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.lightBlue[900],
       body: Column(
@@ -94,8 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemBuilder: (BuildContext context, int index) {
                     return Btn(
                       btnText: barBtn[index],
-                      color: Colors.blue[200],
-                      txtColor: Colors.black,
+                      color: Operator(barBtn[index])
+                          ? Colors.redAccent
+                          : Colors.blue[200],
+                      txtColor:
+                          Operator(barBtn[index]) ? Colors.white : Colors.black,
                     );
                   }),
             ),
