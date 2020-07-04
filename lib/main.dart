@@ -1,3 +1,4 @@
+import 'package:Calculator/functions.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,6 +7,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,37 +52,53 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  final List<String> barBtn = [
+    'AC',
+    'DEL',
+    '﹪',
+    '÷',
+    '7',
+    '8',
+    '9',
+    '×',
+    '4',
+    '5',
+    '6',
+    '-',
+    '1',
+    '2',
+    '3',
+    '+',
+    '0',
+    '.',
+    'ANS',
+    '='
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: Colors.tealAccent[100],
+      backgroundColor: Colors.lightBlue[900],
       body: Column(
         children: <Widget>[
           Expanded(
             child: Container(),
           ),
           Expanded(
-            flex: 1,
-            child: Container(color: Colors.greenAccent),
+            flex: 2,
+            child: Container(
+              child: GridView.builder(
+                  itemCount: barBtn.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Btn(
+                      btnText: barBtn[index],
+                      color: Colors.blue[200],
+                      txtColor: Colors.black,
+                    );
+                  }),
+            ),
           ),
         ],
       ),
