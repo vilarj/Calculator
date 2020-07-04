@@ -22,7 +22,7 @@ class Btn extends StatelessWidget {
             child: Center(
               child: Text(
                 btnText,
-                style: TextStyle(color: txtColor, fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(color: txtColor,fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ),

@@ -1,5 +1,6 @@
-import 'package:Calculator/functions.dart';
+import 'package:Calculator/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Solve',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Solve'),
     );
   }
 }
@@ -53,8 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var equation = '', answer = '';
 
   final List<String> barBtn = [
-    'AC',
-    'DEL',
+    'C',
+    '¬',
     '﹪',
     '÷',
     '7',
@@ -71,12 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
     '+',
     '0',
     '.',
-    'ANS',
+    '∫α',
     '='
   ];
 
   @override
   Widget build(BuildContext context) {
+    title:
+    Text(widget.title);
     // ignore: non_constant_identifier_names
     bool Operator(String x) {
       if (x == '﹪' ||
@@ -84,13 +88,27 @@ class _MyHomePageState extends State<MyHomePage> {
           x == '×' ||
           x == '-' ||
           x == '+' ||
-          x == 'AC' ||
-          x == 'DEL' ||
+          x == 'C' ||
+          x == '¬' ||
           x == '=') {
         return true;
       } else {
         return false;
       }
+    }
+
+    void equalBtn() {
+      String result = equation;
+      result = result.replaceAll('×', '*');
+      result = result.replaceAll('÷', '/');
+      result = result.replaceAll('﹪', '%');
+
+      Parser p = Parser();
+      Expression exp = p.parse(result);
+      ContextModel cm = ContextModel();
+      double eval = exp.evaluate(EvaluationType.REAL, cm);
+
+      answer = eval.toString();
     }
 
     return Scaffold(
@@ -137,9 +155,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         btnTapped: () {
                           setState(() {
                             if (index == 0) {
-                              equation = '';
+                              equation = answer = '';
                             } else if (index == 1) {
-                              equation = equation.substring(0, equation.length - 1);
+                              equation =
+                                  equation.substring(0, equation.length - 1);
+                            }
+                            // equal sign
+                            else if (index == barBtn.length - 1) {
+                              equalBtn();
+                            }
+                            else if (index == 18) {
+                              // TODO: Display new bar buttons containing calculus operators
                             } else {
                               equation += barBtn[index];
                             }
