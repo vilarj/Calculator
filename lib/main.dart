@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   SizedBox(
-                    height: 10,
+                    height: 45,
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Container(
               child: GridView.builder(
                   itemCount: barBtn.length,
@@ -136,7 +136,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     return Btn(
                         btnTapped: () {
                           setState(() {
-                            equation += barBtn[index];
+                            if (index == 0) {
+                              equation = '';
+                            } else if (index == 1) {
+                              equation = equation.substring(0, equation.length - 1);
+                            } else {
+                              equation += barBtn[index];
+                            }
                           });
                         },
                         btnText: barBtn[index],

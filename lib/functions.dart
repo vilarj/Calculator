@@ -16,14 +16,13 @@ class Btn extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(50),
           child: Container(
             color: color,
             child: Center(
               child: Text(
                 btnText,
-                style: TextStyle(
-                    color: txtColor, fontWeight: FontWeight.bold, fontSize: 14),
+                style: TextStyle(color: txtColor, fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ),
